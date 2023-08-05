@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String?   @unique
+  avatar_url String?
+  accounts   Account[]
+  sessions   Session[]
+
+  created_at DateTime     @default(now())
+  UserReview UserReview[]
+
+  @@map("users")
+}
+
+model Account {
+  id                  String  @id @default(cuid())
+  user_id             String
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String? @db.Text
+  access_token        String? @db.Text
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String? @db.Text
+  session_state       String?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_account_id])
+  @@index([user_id])
+  @@map("accounts")
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  session_token String   @unique
+  user_id       String
+  expires       DateTime
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("sessions")
+}
+
+model Book {
+  id           String       @id @default(cuid())
+  name         String
+  cover_url    String
+  pages_number Int
+  BookGenre    BookGenre[]
+  UserReview   UserReview[]
+
+  author    Author @relation(fields: [author_id], references: [id])
+  author_id String
+
+  @@index([author_id])
+  @@map("books")
+}
+
+model Author {
+  id   String @id @default(cuid())
+  name String
+  Book Book[]
+
+  @@map("authors")
+}
+
+model Genre {
+  id        String      @id @default(cuid())
+  name      String
+  BookGenre BookGenre[]
+
+  @@map("genres")
+}
+
+model BookGenre {
+  book    Book   @relation(fields: [book_id], references: [id])
+  book_id String
+
+  genre    Genre  @relation(fields: [genre_id], references: [id])
+  genre_id String
+
+  @@unique([book_id, genre_id])
+  @@index([genre_id, book_id])
+  @@map("books_genres")
+}
+
+model UserReview {
+  id         String   @id @default(cuid())
+  review     String   @db.Text
+  rating     Int      @db.TinyInt
+  created_at DateTime @default(now())
+
+  book    Book   @relation(fields: [book_id], references: [id])
+  book_id String
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@unique([book_id, user_id])
+  @@index([user_id])
+  @@index([book_id])
+  @@map("users_reviews")
+}

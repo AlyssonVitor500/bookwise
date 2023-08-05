@@ -7,7 +7,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -16,7 +15,10 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
