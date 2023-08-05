@@ -26,6 +26,7 @@ import {
 import { CenterItem } from '@/components/bookInfoModal/styles'
 import ReactLoading from 'react-loading'
 import { useInView } from 'react-intersection-observer'
+import { NextSeo } from 'next-seo'
 
 interface PopularBooksRaw {
   mostReaderBooks: {
@@ -101,6 +102,8 @@ export default function Feed() {
 
   return (
     <>
+      <NextSeo title="Feed | Bookwise" noindex />
+
       {isModalBookReviewsVisible && <BookInfoModal />}
       {isModalLoginVisible && <LoginModal />}
 

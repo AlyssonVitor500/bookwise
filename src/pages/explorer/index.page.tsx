@@ -19,6 +19,7 @@ import { api } from '@/lib/axios'
 import { CenterItem } from '@/components/bookInfoModal/styles'
 import ReactLoading from 'react-loading'
 import { Genres } from '@/interfaces/genres-dto'
+import { NextSeo } from 'next-seo'
 
 interface BooksInterface {
   books: {
@@ -75,6 +76,8 @@ export default function Explorer() {
 
   return (
     <>
+      <NextSeo title="Explorar | Bookwise" noindex />
+
       {isModalBookReviewsVisible && <BookInfoModal />}
       {isModalLoginVisible && <LoginModal />}
 

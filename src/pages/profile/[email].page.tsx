@@ -40,6 +40,7 @@ import { api } from '@/lib/axios'
 import { captalizeFirstLetter } from '@/utils/captlizeFirstLetter'
 import { CenterItem } from '@/components/bookInfoModal/styles'
 import ReactLoading from 'react-loading'
+import { NextSeo } from 'next-seo'
 
 interface ProfileProps {
   user: {
@@ -115,6 +116,11 @@ export default function Profile(props: ProfileProps) {
 
   return (
     <>
+      <NextSeo
+        title={`Perfil de ${session?.data?.user.name} | Bookwise`}
+        noindex
+      />
+
       {isModalBookReviewsVisible && <BookInfoModal />}
       {isModalLoginVisible && <LoginModal />}
 

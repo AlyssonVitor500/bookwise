@@ -5,6 +5,11 @@ export default function Document() {
   return (
     <Html lang="pt-br">
       <Head>
+        <link
+          rel="shortcut icon"
+          href="/bookwiseFavicon.svg"
+          type="image/svg"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

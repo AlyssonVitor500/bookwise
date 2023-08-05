@@ -12,6 +12,7 @@ import googleIcon from '@/../public/login/google.svg'
 import rocketIcon from '@/../public/login/guest-rocket.svg'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
 
 export default function Home() {
   const router = useRouter()
@@ -27,6 +28,8 @@ export default function Home() {
 
   return (
     <Container>
+      <NextSeo title="Bookwise" />
+
       <Image src={homeImage} alt="Home image" />
 
       <WelcomeContainer>
